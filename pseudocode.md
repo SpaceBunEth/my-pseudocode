@@ -38,6 +38,7 @@ Today We'll be cooking [Chef John's Tomato Sauce](https://www.allrecipes.com/rec
 - Tools
 - Fresh ingredients
 - Preparation
+- - Senses (Taste, Sound, Apperance/ Sight, and Smell)
 - - - 
 ## INIT():
 - - -
