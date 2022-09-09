@@ -9,9 +9,9 @@
 - Source of heat - Ex: (Stove)
 - Work surface - Ex: (Cutting Board)
 - Cutting Tool - Ex: (Knife)
-- Stirring Tool - Ex: (Wooden Spoon) No this will not work with a regular spoon.
+- Stirring Tool - Ex: (Wooden Spoon) Note: this will not work with a regular spoon.
 - One Large Pot or Cauldron
-- One Large Bolw
+- One Large Bowl
 - Groceries/ Raw Food Items
     
     - Olive Oil - (<sup>1</sup>/<sub>4</sub>  Cup)
@@ -58,6 +58,10 @@ __Chef's Abilities__
 ___
 __PROPERTIES__
 - .environment
+    - .sight
+    - .sound
+    - .smell
+    - .taste
 - .heatSource
 - .tools
 - .ingredients
@@ -65,7 +69,7 @@ __PROPERTIES__
 
 ```Ex: Print (Chef.environment)```
 "Will print out what the chef Tastes, Hears, Sees, and Smells"<br />
-```Ex: Set heatSource to Chef.heatSource``` "Sets heatSource temperature with chef"<br>
+```Ex: Chef.heatSource(heatSource(value))``` "Sets heatSource temperature with chef"<br>
 ```Ex: Chef.tool(tools.woodenSpoon)``` "Selects the tool Chef equips"<br>
 ```Ex: Chef.ingredients(ingredients(Food, Amount))``` "Equips amount of specifed food item"
 ```Ex: Chef.time``` "Reads Time"
@@ -155,12 +159,109 @@ __PROPERTIES__
 ____
 ## Functionality:
 - - -
+### Prep Environment
+```
+    Function checkEnvironment
+        IF cleanEnvironment === True
+            PROCEED
+        IF cleanEnvironment === False
+            STOP
+
+    Function checkGroceries
+        Do I have these items in this amount?
+        Compare List to items and quantities.
+        IF True 
+            PROCEED
+        ELSE
+            STOP
+
+    Function setupHeatSource
+        Chef.tool(tools.largePot)
+        Chef.heatSource(heatSource(mid-low))
 
 
+    Function Chop(x,y) // Pass ingredients to chop
+        Chef.tool(tools.cuttingBoard)
+        Chef.tool(tools.Knife)
+        Chef.ingredients(ingredients.(x,y))
+        ACTION CHOP // Chops up food
+    
+    Function Crush(x,y) // Pass ingredients to Crush
+        Chef.tool(tools.woodenSpoon)
+        Chef.tool(tools.largeBowl)
+        Chef.ingredients(ingredients.(x,y))
+        ACTION CRUSH // Crushes Up food
 
+    Function WaitAndStir
+        time(5)
+        Chef.tool(tool.woodenSpoon)
+        ACTION Stir
+        Print (Chef.environment) 
+
+    Function WaterAndStir
+        time(15)
+        Chef.tool(tools.woodenSpoon)
+        Action Stir
+            IF Chef.environment.sight === 'Water Level Low largePot'
+                ACTION ADD ingredient(Food:[Water], .25)
+        REPEAT x6
+```
+
+### Start Cooking
+```
+    Function Step1
+        Chop(ingredients(Onion, 1))
+        Chop(ingredients(Rib Celery, 1))
+        ACTION ADD TO "largePot"
+        setupHeatSource
+        ACTION ADD ingredients(salt, 0.25)
+            IF NOT Chef.environment.taste === "onions are very soft"
+                WaitAndStir
+                REPEAT
+        Chop(ingredients(Garlic, 4))
+        ACTION ADD TO "largePot"
+        time(1)
+        Print (Chef.environment)
+        
+    Function Step2
+        Crush(ingredients(San Marzano Tomatoes, 28))
+        
+    Function Step3
+        ACTION ADD TO "largePot" ingredients
+        (Food: [White Sugar, salt, anchovy paste, white wine vinegar, Italian herbs, red pepper flakes], Amount: [ALL])
+        
+        Chef.heatSource(heatSource(mid))
+            
+            IF NOT Chef.environment.sight === 'Dry largePot'
+                WaitAndStir
+                REPEAT
+
+        ACTION ADD ingredients(Food: [Tomatoe Paste], Amount: [ALL])
+            IF NOT Chef.environment.sight === 'simmer largePot'
+                WaitAndStir
+                REPEAT
+
+        ACTION ADD ingredients(Food: [San Marzano Tomatoes], Amount:[28])
+        ACTION ADD ingredients(Food: [Italian FlatLeaf Parsley], Amount:[2])
+            IF NOT Chef.environment.sight === 'simmer largePot'
+                WaitAndStir
+                REPEAT            
+            ELSE 
+                Chef.heatSource(heatSource(low))
+        WaterAndStir
+            
+    Function Step4 
+        Chef.environment.taste = "ALL DONE ENJOY!"
+```
 - - -
 ## Run Program:
 - - -
+checkEnvironment
+checkGroceries
+Step1
+Step2
+Step3
+Step4
 
 - - -
 ###### RETURN([Sauce](https://www.youtube.com/watch?v=HP9doLye26I))
