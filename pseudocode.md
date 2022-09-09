@@ -256,13 +256,14 @@ ____
 - - -
 ## Run Program:
 - - -
+```
 checkEnvironment
 checkGroceries
 Step1
 Step2
 Step3
 Step4
-
+```
 - - -
 ###### RETURN([Sauce](https://www.youtube.com/watch?v=HP9doLye26I))
 
